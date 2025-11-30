@@ -125,8 +125,12 @@ Open this URL in your browser to explore and test the APIs interactively.
 
 The application uses the following environment variables:
 ```text
-SPRING_DATASOURCE_URL – JDBC URL for PostgreSQL (default: `jdbc:postgresql://postgres:5432/<DB Name>`)
-LLM_BASE_URL – Base URL for the LLaMA / Ollama server (default: `http://host.docker.internal:11434`)
+SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/
+SPRING_DATASOURCE_USERNAME=<username>
+SPRING_DATASOURCE_PASSWORD=<password>
+LLM_BASE_URL=http://host.docker.internal:11434
+SECURITY_API_KEY=<API Key>
+SECURITY_API_SECRET=<API Secret>
 
 ```
 ### Sample API Requests
