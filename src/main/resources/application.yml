@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+  flyway:
+    enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+
+# app config
+app:
+  api-key-header: X-API-KEY
+  llm:
+    base-url: ${LLM_BASE_URL} # LLaMA server base URL
+    chat-path: /v1/completions
+    embedding-path: /v1/embeddings
+
+ratelimit:
+  capacity: 60
+  refill-tokens: 60
+  refill-period-seconds: 60
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html

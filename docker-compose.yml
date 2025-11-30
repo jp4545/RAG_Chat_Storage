@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg17
+    container_name: rag-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: chatdb
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./db-init:/docker-entrypoint-initdb.d
+    networks:
+      - rag-network
+
+  ragapp:
+    build: .
+    container_name: rag-app
+    restart: always
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      LLM_BASE_URL: ${LLM_BASE_URL}
+      SECURITY_API_KEY: ${SECURITY_API_KEY}
+      SECURITY_API_SECRET: ${SECURITY_API_SECRET}
+    networks:
+      - rag-network
+
+volumes:
+  pgdata:
+
+networks:
+  rag-network:
+    driver: bridge

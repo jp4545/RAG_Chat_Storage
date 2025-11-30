@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>CORS Test</h2>
+
+<button onclick="testGet()">Test GET Request</button>
+
+<script>
+        function testGet() {
+            fetch("http://localhost:8080/session/26736097-85bf-4814-9a3b-b33d82c061d3", {
+                method: "GET",
+                headers: {
+                    "X-API-KEY": "my-api-key-123",
+                     "X-API-SECRET": "my-secret-456" // deliberately not allowed
+                }
+            })
+            .then(res => res.text())
+            .then(console.log)
+            .catch(err => console.error("CORS BLOCKED:", err));
+        }
+    </script>
+
+</body>
+</html>
